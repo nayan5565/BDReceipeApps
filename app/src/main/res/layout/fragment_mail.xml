@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="প্রাপক"
+        android:textColor="#f0f" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="nayan5565@gmail.com" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="প্রেরক  "
+        android:textColor="#f0f" />
+
+    <EditText
+        android:id="@+id/edtMail"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="press mail" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="বিষয় "
+        android:textColor="#f0f" />
+
+    <EditText
+        android:id="@+id/edtSubject"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:hint="রেসিপি চাই "/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="বিস্তারিত "
+        android:textColor="#f0f" />
+
+    <EditText
+        android:id="@+id/edtDescription"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:inputType="textMultiLine"
+        android:hint="বিস্তারিত লিখুন "/>
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="পাঠিয়ে দিন "
+        android:layout_gravity="center"
+        android:textColor="#f0f"/>
+
+</LinearLayout>

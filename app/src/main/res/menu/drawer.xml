@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <group>
+
+        <item
+            android:id="@+id/bangla"
+            android:checked="true"
+            android:icon="@drawable/bd"
+            android:title="Bangla" />
+        <item
+            android:id="@+id/english"
+            android:title="English" />
+        <item
+            android:id="@+id/math"
+            android:title="Math" />
+    </group>
+
+    <item android:title="SubMenu">
+        <menu>
+            <item android:title="General Knowledge" />
+            <item android:title="Sports" />
+        </menu>
+    </item>
+
+</menu>
