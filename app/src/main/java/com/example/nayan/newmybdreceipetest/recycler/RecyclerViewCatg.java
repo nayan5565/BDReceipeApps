@@ -2,7 +2,9 @@ package com.example.nayan.newmybdreceipetest.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,7 +13,9 @@ import android.widget.TextView;
 
 import com.example.nayan.newmybdreceipetest.R;
 import com.example.nayan.newmybdreceipetest.activity.ListOfReceipeActivity;
+import com.example.nayan.newmybdreceipetest.activity.MainActivity;
 import com.example.nayan.newmybdreceipetest.model.MCategory;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -44,9 +48,16 @@ public class RecyclerViewCatg extends RecyclerView.Adapter<RecyclerViewCatg.MyVi
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),
+                "fonts/solaiman.ttf");
         category = mCategories.get(position);
-        holder.image.setImageResource(R.drawable.bd);
+        Picasso.with(context)
+                .load(MainActivity.IMAGE_URL+category.getCategoryPhoto())
+                .into(holder.image);
+        holder.title.setTypeface(tf);
         holder.title.setText(category.getCategoryTitle());
+        holder.description.setTypeface(tf);
         holder.description.setText(category.getCategoryDetails());
         holder.number.setText(category.getCategoryTotalRecipe() + "");
 
@@ -75,6 +86,9 @@ public class RecyclerViewCatg extends RecyclerView.Adapter<RecyclerViewCatg.MyVi
                     category = mCategories.get(getAdapterPosition());
                     Intent intent = new Intent(context, ListOfReceipeActivity.class);
                     intent.putExtra("id", category.getCategoryId());
+                    intent.putExtra("image", category.getCategoryPhoto());
+                    intent.putExtra("title", category.getCategoryTitle());
+                    Log.e("ima","is"+category.getCategoryPhoto());
                     context.startActivity(intent);
 
 

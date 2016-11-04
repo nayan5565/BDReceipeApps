@@ -4,11 +4,28 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-   <ImageView
-       android:id="@+id/imgAcar"
+   <FrameLayout
        android:layout_width="fill_parent"
-       android:layout_height="150dp"
-       android:src="@drawable/bd"/>
+       android:layout_height="wrap_content">
+
+      <ImageView
+          android:id="@+id/imgAcar"
+          android:layout_width="fill_parent"
+          android:layout_height="150dp"
+          android:scaleType="fitXY"
+          android:src="@drawable/bd"/>
+
+      <TextView
+          android:id="@+id/txtReceipeTitle"
+          android:layout_width="fill_parent"
+          android:layout_height="wrap_content"
+          android:textStyle="italic"
+          android:layout_gravity="bottom"
+          android:background="#0ff"/>
+
+   </FrameLayout>
+
+
 
    <android.support.v7.widget.RecyclerView
        android:id="@+id/listReceipe"

@@ -3,15 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
-    <ImageView
+    <FrameLayout
         android:layout_width="fill_parent"
-        android:layout_height="150dp"
-        android:src="@drawable/bd"/>
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Bangladesh"/>
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/imgSingle"
+            android:layout_width="fill_parent"
+            android:scaleType="fitXY"
+            android:layout_height="150dp"
+            android:src="@drawable/bd"/>
+        <TextView
+            android:id="@+id/txtTitle"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:background="#0ff"
+            android:layout_gravity="bottom"
+            android:text="Bangladesh"/>
+    </FrameLayout>
+
+
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"

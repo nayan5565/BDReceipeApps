@@ -2,15 +2,19 @@ package com.example.nayan.newmybdreceipetest.recycler;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.nayan.newmybdreceipetest.R;
+import com.example.nayan.newmybdreceipetest.activity.MainActivity;
 import com.example.nayan.newmybdreceipetest.activity.SingleReceipeActivity;
 import com.example.nayan.newmybdreceipetest.model.MReceipe;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,7 +46,13 @@ public class MyAcharAdapter extends RecyclerView.Adapter<MyAcharAdapter.MyViewHo
 
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
+        Typeface tf = Typeface.createFromAsset(context.getAssets(),
+                "fonts/solaiman.ttf");
         mReceipe=mReceipes.get(position);
+        Picasso.with(context)
+                .load(MainActivity.IMAGE_URL+mReceipe.getThumb())
+                .into(holder.imgReceipe);
+        holder.txtReceipe.setTypeface(tf);
         holder.txtReceipe.setText(mReceipe.getTitle());
 
     }
@@ -54,9 +64,11 @@ public class MyAcharAdapter extends RecyclerView.Adapter<MyAcharAdapter.MyViewHo
 
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView txtReceipe;
+        private ImageView imgReceipe;
         public MyViewHolder(View itemView) {
             super(itemView);
             txtReceipe=(TextView)itemView.findViewById(R.id.txtReceipe);
+            imgReceipe=(ImageView) itemView.findViewById(R.id.imgreceipe);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -64,6 +76,8 @@ public class MyAcharAdapter extends RecyclerView.Adapter<MyAcharAdapter.MyViewHo
                     Intent intent=new Intent(context, SingleReceipeActivity.class);
                     intent.putExtra("imgredins",mReceipe.getIngredients());
                     intent.putExtra("process",mReceipe.getProcess());
+                    intent.putExtra("image",mReceipe.getPhoto());
+                    intent.putExtra("title",mReceipe.getTitle());
                     context.startActivity(intent);
                 }
             });

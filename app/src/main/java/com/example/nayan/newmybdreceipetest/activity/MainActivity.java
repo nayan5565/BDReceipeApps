@@ -9,6 +9,9 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.TypefaceSpan;
 import android.view.MenuItem;
 
 import com.example.nayan.newmybdreceipetest.MyPagerAdapter;
@@ -25,6 +28,7 @@ public class MainActivity extends AppCompatActivity {
     ViewPager viewPager;
     TabLayout tabLayout;
     MyPagerAdapter adapter;
+    public static String IMAGE_URL="http://www.radhooni.com/content/backend/uploads/";
 
 
     @Override
@@ -40,9 +44,13 @@ public class MainActivity extends AppCompatActivity {
 
 
     private void init() {
+
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        toolbar.setTitle("বাংলাদেশী রেসিপি ");
+        SpannableString s = new SpannableString("বাংলাদেশী রেসিপি ");
+        s.setSpan(new TypefaceSpan("bangla.ttf"), 0, s.length(),
+                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        toolbar.setTitle(s);
         toolbar.setTitleTextColor(0xffffffff);
         navigationView = (NavigationView) findViewById(R.id.navigation);
         viewPager = (ViewPager) findViewById(R.id.viewPager);
@@ -51,6 +59,7 @@ public class MainActivity extends AppCompatActivity {
         actionBar = getSupportActionBar();
         actionBar.setHomeAsUpIndicator(R.drawable.ic_menu);
         actionBar.setDisplayHomeAsUpEnabled(true);
+
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
