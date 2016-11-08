@@ -86,7 +86,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MyPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(CategoryFragment.getInstance(), "ক্যাটেগরি  ");
-        adapter.addFragment(FragDemo.getInstance(2), "পছন্দনীয় ");
+        adapter.addFragment(FragDemo.getInstance(), "পছন্দনীয় ");
         adapter.addFragment(FragmentMail.getinstance(), "রেসিপি চাই");
         viewPager.setAdapter(adapter);
     }

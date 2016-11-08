@@ -5,7 +5,15 @@ package com.example.nayan.newmybdreceipetest.model;
  */
 public class MReceipe {
     private String Title,Photo,Thumb,Ingredients,Process,PPhoto,CategoryTitle,SearchTag;
-    private int Id,CategoryId,TypeOne,TypeTwo,TypeThree,TypeFour,TypeFive;
+    private int Id,CategoryId,TypeOne,TypeTwo,TypeThree,TypeFour,TypeFive,Fav;
+
+    public int getFav() {
+        return Fav;
+    }
+
+    public void setFav(int fav) {
+        Fav = fav;
+    }
 
     public String getTitle() {
         return Title;

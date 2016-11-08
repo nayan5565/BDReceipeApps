@@ -15,12 +15,15 @@ import com.example.nayan.newmybdreceipetest.model.MReceipe;
 import com.example.nayan.newmybdreceipetest.model.MReceipeObject;
 import com.example.nayan.newmybdreceipetest.recycler.MyAcharAdapter;
 import com.google.gson.Gson;
+import com.jewel.dbmanager.DBManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -35,6 +38,7 @@ public class ListOfReceipeActivity extends AppCompatActivity {
     private String image,title;
     private ImageView imgAchar;
     private MReceipe mReceipe;
+    private ArrayList<MReceipe>receipes;
     TextView txtTitle;
 
     @Override
@@ -47,6 +51,7 @@ public class ListOfReceipeActivity extends AppCompatActivity {
         id = getIntent().getIntExtra("id", 0);
 
         getOnlineData();
+        getDataFromDb();
 
 
     }
@@ -83,8 +88,8 @@ public class ListOfReceipeActivity extends AppCompatActivity {
                 super.onSuccess(statusCode, headers, response);
                 MReceipeObject mReceipeObject = gson.fromJson(response.toString(), MReceipeObject.class);
                 Log.e("data", "ss" + mReceipeObject);
-
-                acharAdapter.setData(mReceipeObject.getRecipes());
+                DBManager.getInstance().addData(mReceipeObject.getRecipes(),"Id");
+               getDataFromDb();
 
 
 
@@ -95,5 +100,11 @@ public class ListOfReceipeActivity extends AppCompatActivity {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
+    }
+    private void getDataFromDb(){
+        receipes=DBManager.getInstance().getData(MReceipe.class,"select * from MReceipe where CategoryId='"+id+"' OR TypeOne='"+id+"' OR TypeTwo='"+id+"' OR TypeFive='"+id+"'");
+        Log.e("receipe", "ss" + receipes.size());
+        acharAdapter.setData(receipes);
+
     }
 }

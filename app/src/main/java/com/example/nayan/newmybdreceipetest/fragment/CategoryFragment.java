@@ -11,13 +11,17 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.nayan.newmybdreceipetest.R;
+import com.example.nayan.newmybdreceipetest.model.MCategory;
 import com.example.nayan.newmybdreceipetest.model.MCategoryObject;
 import com.example.nayan.newmybdreceipetest.recycler.RecyclerViewCatg;
 import com.google.gson.Gson;
+import com.jewel.dbmanager.DBManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
 
@@ -27,8 +31,10 @@ import cz.msebera.android.httpclient.Header;
 public class CategoryFragment extends Fragment {
     RecyclerView recyclerView;
     RecyclerViewCatg recyclerViewCatg;
+    private static ArrayList<MCategory> categories;
     View view;
     private Gson gson;
+    private MCategory category;
 
     public static CategoryFragment getInstance() {
         CategoryFragment categoryFragment = new CategoryFragment();
@@ -41,10 +47,13 @@ public class CategoryFragment extends Fragment {
         view = inflater.inflate(R.layout.frag_category, container, false);
         init();
         getOnlineData();
+        getDataFromDb();
         return view;
     }
 
     private void init() {
+        category = new MCategory();
+
         recyclerViewCatg = new RecyclerViewCatg(getContext());
         gson = new Gson();
         recyclerView = (RecyclerView) view.findViewById(R.id.listCatgory);
@@ -54,14 +63,18 @@ public class CategoryFragment extends Fragment {
     }
 
     private void getOnlineData() {
-        AsyncHttpClient client = new AsyncHttpClient();
+        final AsyncHttpClient client = new AsyncHttpClient();
         client.post("http://www.radhooni.com/content/api/category.php", new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 super.onSuccess(statusCode, headers, response);
                 MCategoryObject mCategories = gson.fromJson(response.toString(), MCategoryObject.class);
                 Log.e("Online ", "data is" + mCategories);
-                recyclerViewCatg.setData(mCategories.getCategories());
+                DBManager.getInstance().addData(mCategories.getCategories(), "categoryId");
+
+                categories = DBManager.getInstance().getData(MCategory.class);
+                Log.e("list", "catagories"+categories);
+                recyclerViewCatg.setData(categories);
             }
 
             @Override
@@ -69,6 +82,11 @@ public class CategoryFragment extends Fragment {
                 super.onFailure(statusCode, headers, responseString, throwable);
             }
         });
-    }
 
+    }
+    public void getDataFromDb(){
+        categories = DBManager.getInstance().getData(MCategory.class);
+        Log.e("list", "catagories"+categories);
+        recyclerViewCatg.setData(categories);
+    }
 }

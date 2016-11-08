@@ -21,26 +21,28 @@ import java.util.ArrayList;
 /**
  * Created by NAYAN on 11/3/2016.
  */
-public class MyAcharAdapter extends RecyclerView.Adapter<MyAcharAdapter.MyViewHolder>{
+public class MyAcharAdapter extends RecyclerView.Adapter<MyAcharAdapter.MyViewHolder> {
     private View view;
     private LayoutInflater inflater;
     private Context context;
-    private ArrayList<MReceipe>mReceipes;
+    private ArrayList<MReceipe> mReceipes;
     private MReceipe mReceipe;
 
-    public MyAcharAdapter(Context context){
-        this.context=context;
-        mReceipes=new ArrayList<>();
-        inflater=LayoutInflater.from(context);
+    public MyAcharAdapter(Context context) {
+        this.context = context;
+        mReceipes = new ArrayList<>();
+        inflater = LayoutInflater.from(context);
     }
-    public void setData(ArrayList<MReceipe>mReceipes){
-        this.mReceipes=mReceipes;
+
+    public void setData(ArrayList<MReceipe> mReceipes) {
+        this.mReceipes = mReceipes;
         notifyDataSetChanged();
     }
+
     @Override
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        view=inflater.inflate(R.layout.row_receipe_list,parent,false);
-        MyViewHolder myViewHolder=new MyViewHolder(view);
+        view = inflater.inflate(R.layout.row_receipe_list, parent, false);
+        MyViewHolder myViewHolder = new MyViewHolder(view);
         return myViewHolder;
     }
 
@@ -48,9 +50,9 @@ public class MyAcharAdapter extends RecyclerView.Adapter<MyAcharAdapter.MyViewHo
     public void onBindViewHolder(MyViewHolder holder, int position) {
         Typeface tf = Typeface.createFromAsset(context.getAssets(),
                 "fonts/solaiman.ttf");
-        mReceipe=mReceipes.get(position);
+        mReceipe = mReceipes.get(position);
         Picasso.with(context)
-                .load(MainActivity.IMAGE_URL+mReceipe.getThumb())
+                .load(MainActivity.IMAGE_URL + mReceipe.getThumb())
                 .into(holder.imgReceipe);
         holder.txtReceipe.setTypeface(tf);
         holder.txtReceipe.setText(mReceipe.getTitle());
@@ -65,19 +67,17 @@ public class MyAcharAdapter extends RecyclerView.Adapter<MyAcharAdapter.MyViewHo
     class MyViewHolder extends RecyclerView.ViewHolder {
         private TextView txtReceipe;
         private ImageView imgReceipe;
+
         public MyViewHolder(View itemView) {
             super(itemView);
-            txtReceipe=(TextView)itemView.findViewById(R.id.txtReceipe);
-            imgReceipe=(ImageView) itemView.findViewById(R.id.imgreceipe);
+            txtReceipe = (TextView) itemView.findViewById(R.id.txtReceipe);
+            imgReceipe = (ImageView) itemView.findViewById(R.id.imgreceipe);
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    mReceipe=mReceipes.get(getAdapterPosition());
-                    Intent intent=new Intent(context, SingleReceipeActivity.class);
-                    intent.putExtra("imgredins",mReceipe.getIngredients());
-                    intent.putExtra("process",mReceipe.getProcess());
-                    intent.putExtra("image",mReceipe.getPhoto());
-                    intent.putExtra("title",mReceipe.getTitle());
+                    mReceipe = mReceipes.get(getAdapterPosition());
+                    Intent intent = new Intent(context, SingleReceipeActivity.class);
+                    SingleReceipeActivity.receipe = mReceipe;
                     context.startActivity(intent);
                 }
             });

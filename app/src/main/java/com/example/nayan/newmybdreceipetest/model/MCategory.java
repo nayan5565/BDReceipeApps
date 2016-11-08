@@ -7,6 +7,7 @@ public class MCategory {
     String categoryTitle,categoryDetails,categoryPhoto,categoryThumb;
     int categoryTotalRecipe,categoryType,categoryUpdateAvailable,ordering, categoryId;
 
+
     public int getCategoryId() {
         return categoryId;
     }
