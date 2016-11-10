@@ -4,7 +4,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,10 +84,7 @@ public class RecyclerViewCatg extends RecyclerView.Adapter<RecyclerViewCatg.MyVi
                 public void onClick(View v) {
                     category = mCategories.get(getAdapterPosition());
                     Intent intent = new Intent(context, ListOfReceipeActivity.class);
-                    intent.putExtra("id", category.getCategoryId());
-                    intent.putExtra("image", category.getCategoryPhoto());
-                    intent.putExtra("title", category.getCategoryTitle());
-                    Log.e("ima","is"+category.getCategoryPhoto());
+                    ListOfReceipeActivity.category=category;
                     context.startActivity(intent);
 
 

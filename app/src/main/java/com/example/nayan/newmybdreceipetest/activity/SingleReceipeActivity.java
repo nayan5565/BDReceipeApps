@@ -4,14 +4,16 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.nayan.newmybdreceipetest.R;
+import com.example.nayan.newmybdreceipetest.model.MFavourite;
 import com.example.nayan.newmybdreceipetest.model.MReceipe;
-import com.jewel.dbmanager.DBManager;
+import com.example.nayan.newmybdreceipetest.support.DBManager;
 import com.squareup.picasso.Picasso;
 
 /**
@@ -19,6 +21,7 @@ import com.squareup.picasso.Picasso;
  */
 public class SingleReceipeActivity extends AppCompatActivity {
     public static MReceipe receipe;
+    private MFavourite mFavourite;
     private TextView txtProcess, txtMaterials, txtTitle, txtFav;
     private ImageView imgSingle, imgFav;
 
@@ -27,6 +30,7 @@ public class SingleReceipeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.single_receipe_acivity);
+        mFavourite=new MFavourite();
         Typeface tf = Typeface.createFromAsset(getAssets(),
                 "fonts/solaiman.ttf");
         txtProcess = (TextView) findViewById(R.id.process);
@@ -52,13 +56,17 @@ public class SingleReceipeActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (receipe.getFav() == 1) {
-                    receipe.setFav(0);
+                    mFavourite.setId(receipe.getId());
+                    mFavourite.setFav(0);
+
                     Toast.makeText(SingleReceipeActivity.this, "UnFavourite", Toast.LENGTH_SHORT).show();
                 } else {
-                    receipe.setFav(1);
+                    mFavourite.setFav(1);
+                    mFavourite.setId(receipe.getId());
                     Toast.makeText(SingleReceipeActivity.this, "Favourite", Toast.LENGTH_SHORT).show();
                 }
-                DBManager.getInstance().addData(receipe, "Id");
+                receipe.setFav(mFavourite.getFav());
+                DBManager.getInstance().addData(mFavourite, "id");
                 clickFav();
             }
 
@@ -75,5 +83,19 @@ public class SingleReceipeActivity extends AppCompatActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        clickFav();
+        Log.e("res","res");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+
+//        MainActivity.tabLayout.getTabAt(0).select();
     }
 }

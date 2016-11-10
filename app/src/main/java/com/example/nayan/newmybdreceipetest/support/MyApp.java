@@ -1,11 +1,11 @@
-package com.example.nayan.newmybdreceipetest.activity.support;
+package com.example.nayan.newmybdreceipetest.support;
 
 import android.app.Application;
 import android.content.Context;
 
 import com.example.nayan.newmybdreceipetest.model.MCategory;
+import com.example.nayan.newmybdreceipetest.model.MFavourite;
 import com.example.nayan.newmybdreceipetest.model.MReceipe;
-import com.jewel.dbmanager.DBManager;
 
 /**
  * Created by NAYAN on 11/6/2016.
@@ -24,5 +24,6 @@ public class MyApp extends Application {
         DBManager.init(context);
         DBManager.createTable(MCategory.class);
         DBManager.createTable(MReceipe.class);
+        DBManager.createTable(MFavourite.class);
     }
 }

@@ -1,6 +1,7 @@
 package com.example.nayan.newmybdreceipetest.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
@@ -13,22 +14,27 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
 import android.view.MenuItem;
+import android.widget.TextView;
 
 import com.example.nayan.newmybdreceipetest.MyPagerAdapter;
 import com.example.nayan.newmybdreceipetest.R;
 import com.example.nayan.newmybdreceipetest.fragment.CategoryFragment;
-import com.example.nayan.newmybdreceipetest.fragment.FragDemo;
+import com.example.nayan.newmybdreceipetest.fragment.FavouriteListFragment;
 import com.example.nayan.newmybdreceipetest.fragment.FragmentMail;
 
 public class MainActivity extends AppCompatActivity {
     Toolbar toolbar;
+    TextView tx;
     NavigationView navigationView;
     ActionBar actionBar;
     DrawerLayout drawerLayout;
     ViewPager viewPager;
-    TabLayout tabLayout;
+    Handler handler;
+    public static TabLayout tabLayout;
+
     MyPagerAdapter adapter;
-    public static String IMAGE_URL="http://www.radhooni.com/content/backend/uploads/";
+    private int counter = 0;
+    public static String IMAGE_URL = "http://www.radhooni.com/content/backend/uploads/";
 
 
     @Override
@@ -42,9 +48,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-
     private void init() {
-
+        handler=new Handler();
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         SpannableString s = new SpannableString("বাংলাদেশী রেসিপি ");
@@ -86,7 +91,7 @@ public class MainActivity extends AppCompatActivity {
         adapter = new MyPagerAdapter(getSupportFragmentManager());
 
         adapter.addFragment(CategoryFragment.getInstance(), "ক্যাটেগরি  ");
-        adapter.addFragment(FragDemo.getInstance(), "পছন্দনীয় ");
+        adapter.addFragment(FavouriteListFragment.getInstance(), "পছন্দনীয় ");
         adapter.addFragment(FragmentMail.getinstance(), "রেসিপি চাই");
         viewPager.setAdapter(adapter);
     }
@@ -111,4 +116,26 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    public void onBackPressed() {
+        counter++;
+        if (counter >= 2) {
+           super.onBackPressed();
+
+        }
+
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                counter = 0;
+
+
+            }
+
+        }, 1000);
+
+    }
+
+
 }

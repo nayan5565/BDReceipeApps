@@ -14,8 +14,8 @@ import com.example.nayan.newmybdreceipetest.R;
 import com.example.nayan.newmybdreceipetest.model.MCategory;
 import com.example.nayan.newmybdreceipetest.model.MCategoryObject;
 import com.example.nayan.newmybdreceipetest.recycler.RecyclerViewCatg;
+import com.example.nayan.newmybdreceipetest.support.DBManager;
 import com.google.gson.Gson;
-import com.jewel.dbmanager.DBManager;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 
@@ -73,7 +73,7 @@ public class CategoryFragment extends Fragment {
                 DBManager.getInstance().addData(mCategories.getCategories(), "categoryId");
 
                 categories = DBManager.getInstance().getData(MCategory.class);
-                Log.e("list", "catagories"+categories);
+                Log.e("list", "catagories" + categories);
                 recyclerViewCatg.setData(categories);
             }
 
@@ -84,9 +84,12 @@ public class CategoryFragment extends Fragment {
         });
 
     }
-    public void getDataFromDb(){
+
+    public void getDataFromDb() {
         categories = DBManager.getInstance().getData(MCategory.class);
-        Log.e("list", "catagories"+categories);
+        Log.e("list", "catagories" + categories);
         recyclerViewCatg.setData(categories);
     }
+
+
 }
