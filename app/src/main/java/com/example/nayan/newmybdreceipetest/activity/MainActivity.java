@@ -15,6 +15,7 @@ import android.text.SpannableString;
 import android.text.style.TypefaceSpan;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.nayan.newmybdreceipetest.MyPagerAdapter;
 import com.example.nayan.newmybdreceipetest.R;
@@ -119,7 +120,10 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+
+        MainActivity.tabLayout.getTabAt(0).select();
         counter++;
+        Toast.makeText(MainActivity.this,"বের হতে চাইলে অনুগ্রহ করে পরপর দুই বার ব্যাক বাটন ক্লিক করুন ",Toast.LENGTH_SHORT).show();
         if (counter >= 2) {
            super.onBackPressed();
 
